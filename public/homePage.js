@@ -30,7 +30,6 @@ ApiConnector.getStocks(callback => {
     или передаем в качестве аргумента? 
     И тогда нужно будет вывести в константу наш запрос?
 */ 
-const errorMessageBlock = new MoneyManager();
 const addMoneyForm = new MoneyManager();
 addMoneyForm.addMoneyCallback = (data) => {
     ApiConnector.addMoney(data, callback => {
@@ -38,7 +37,7 @@ addMoneyForm.addMoneyCallback = (data) => {
             ProfileWidget.showProfile(callback.data);
             // addMoneyForm.setMessage(callback.success, callback.data);
         } else {
-            errorMessageBlock.setMessage(!callback.success, callback.data);
+            addMoneyForm.setMessage(!callback.success, callback.data);
         }
     });
 };
@@ -50,7 +49,7 @@ conversionMoneyForm.conversionMoneyCallback = (data) => {
         if (callback.success === true) {
             ProfileWidget.showProfile(callback.data);
         } else {
-            errorMessageBlock.setMessage(!callback.success, callback.data);
+            conversionMoneyForm.setMessage(!callback.success, callback.data);
         }
     })
 }
@@ -75,7 +74,6 @@ ApiConnector.getFavorites(callback => {
 });
 
 const addUserToFavoritesForm = new FavoritesWidget();
-const favoritesMessageBox = new FavoritesWidget();
 addUserToFavoritesForm.addUserCallback = (data) => {
     ApiConnector.addUserToFavorites(data, callback => {
         console.log(callback)
@@ -84,7 +82,7 @@ addUserToFavoritesForm.addUserCallback = (data) => {
             addUserToFavoritesForm.fillTable(callback.data);
             sendMoneyForm.updateUsersList(callback.data);
         } else {
-            favoritesMessageBox.setMessage(!callback.success, callback.data);
+            addUserToFavoritesForm.setMessage(!callback.success, callback.data);
         }
     });
 };
@@ -98,7 +96,7 @@ removeUserToFavoritesForm.removeUserCallback = (data) => {
             removeUserToFavoritesForm.fillTable(callback.data);
             sendMoneyForm.updateUsersList(callback.data);
         } else {
-            favoritesMessageBox.setMessage(!callback.success, callback.data);
+            removeUserToFavoritesForm.setMessage(!callback.success, callback.data);
         }
     });
 }
