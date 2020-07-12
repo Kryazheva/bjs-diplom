@@ -11,7 +11,7 @@ logIn.loginFormCallback = data => {
   }
 
   logIn.registerFormCallback = data => {
-    ApiConnector.login(data, callback => {
+    ApiConnector.register(data, callback => {
       if (callback.success === true) {
           location.reload(); //войди
       } else{
