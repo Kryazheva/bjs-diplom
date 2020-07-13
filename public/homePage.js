@@ -23,44 +23,42 @@ ApiConnector.getStocks(callback => {
     }
 });
 
-/* window.setInterval(() => {
-    }, 1000);
+setInterval(function(){
+    ApiConnector.getStocks
+    // console.log(ApiConnector.getStocks)
+}, 1000);
 
-    мы внутри сеттаймаута реализовываем getStocks?
-    или передаем в качестве аргумента? 
-    И тогда нужно будет вывести в константу наш запрос?
-*/ 
+
 const addMoneyForm = new MoneyManager();
 addMoneyForm.addMoneyCallback = (data) => {
     ApiConnector.addMoney(data, callback => {
         if (callback.success === true) {
             ProfileWidget.showProfile(callback.data);
-            // addMoneyForm.setMessage(callback.success, callback.data);
+            addMoneyForm.setMessage(callback.success, callback.data);
         } else {
             addMoneyForm.setMessage(!callback.success, callback.data);
         }
     });
 };
 
-//при любом раскладе почему то приходит false
-const conversionMoneyForm = new MoneyManager();
-conversionMoneyForm.conversionMoneyCallback = (data) => {
+addMoneyForm.conversionMoneyCallback = (data) => {
     ApiConnector.convertMoney(data, callback => {
         if (callback.success === true) {
             ProfileWidget.showProfile(callback.data);
+            addMoneyForm.setMessage(callback.success, callback.data);
         } else {
-            conversionMoneyForm.setMessage(!callback.success, callback.data);
+            addMoneyForm.setMessage(!callback.success, callback.data);
         }
     })
 }
-//при любом раскладе почему то приходит false
-const sendMoneyForm = new MoneyManager();
-sendMoneyForm.sendMoneyCallback = (data) => {
+
+addMoneyForm.sendMoneyCallback = (data) => {
     ApiConnector.transferMoney(data, callback => {
         if (callback.success === true) {
             ProfileWidget.showProfile(callback.data);
+            addMoneyForm.setMessage(callback.success, callback.data);
         } else {
-            errorMessageBlock.setMessage(!callback.success, callback.data);
+            addMoneyForm.setMessage(!callback.success, callback.data);
         }
     })
 }
@@ -69,34 +67,32 @@ ApiConnector.getFavorites(callback => {
     if (callback.success === true) {
         favoritesTableBody.clearTable();
         favoritesTableBody.fillTable(callback.data);
-        sendMoneyForm.updateUsersList(callback.data);
+        addMoneyForm.updateUsersList(callback.data);
     }
 });
 
-const addUserToFavoritesForm = new FavoritesWidget();
-addUserToFavoritesForm.addUserCallback = (data) => {
+favoritesTableBody.addUserCallback = (data) => {
     ApiConnector.addUserToFavorites(data, callback => {
         console.log(callback)
         if (callback.success === true) {
-            addUserToFavoritesForm.clearTable();
-            addUserToFavoritesForm.fillTable(callback.data);
-            sendMoneyForm.updateUsersList(callback.data);
+            favoritesTableBody.clearTable();
+            favoritesTableBody.fillTable(callback.data);
+            addMoneyForm.updateUsersList(callback.data);
         } else {
-            addUserToFavoritesForm.setMessage(!callback.success, callback.data);
+            favoritesTableBody.setMessage(!callback.success, callback.data);
         }
     });
 };
 
-const removeUserToFavoritesForm = new FavoritesWidget();
-removeUserToFavoritesForm.removeUserCallback = (data) => {
+favoritesTableBody.removeUserCallback = (data) => {
     ApiConnector.removeUserFromFavorites(data, callback => {
         console.log(callback)
         if (callback.success === true) {
-            removeUserToFavoritesForm.clearTable();
-            removeUserToFavoritesForm.fillTable(callback.data);
-            sendMoneyForm.updateUsersList(callback.data);
+            favoritesTableBody.clearTable();
+            favoritesTableBody.fillTable(callback.data);
+            addMoneyForm.updateUsersList(callback.data);
         } else {
-            removeUserToFavoritesForm.setMessage(!callback.success, callback.data);
+            favoritesTableBody.setMessage(!callback.success, callback.data);
         }
     });
 }
