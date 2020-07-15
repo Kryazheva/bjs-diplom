@@ -34,7 +34,7 @@ addMoneyForm.addMoneyCallback = (data) => {
     ApiConnector.addMoney(data, callback => {
         if (callback.success === true) {
             ProfileWidget.showProfile(callback.data);
-            addMoneyForm.setMessage(callback.success, callback.data);
+            addMoneyForm.setMessage(false, 'Кошелек пополнен');
         } else {
             addMoneyForm.setMessage(!callback.success, callback.data);
         }
@@ -45,7 +45,7 @@ addMoneyForm.conversionMoneyCallback = (data) => {
     ApiConnector.convertMoney(data, callback => {
         if (callback.success === true) {
             ProfileWidget.showProfile(callback.data);
-            addMoneyForm.setMessage(callback.success, callback.data);
+            addMoneyForm.setMessage(false, 'Успешно сконвертирована валюта');
         } else {
             addMoneyForm.setMessage(!callback.success, callback.data);
         }
@@ -56,7 +56,7 @@ addMoneyForm.sendMoneyCallback = (data) => {
     ApiConnector.transferMoney(data, callback => {
         if (callback.success === true) {
             ProfileWidget.showProfile(callback.data);
-            addMoneyForm.setMessage(callback.success, callback.data);
+            addMoneyForm.setMessage(false, 'Перевод выполнен');
         } else {
             addMoneyForm.setMessage(!callback.success, callback.data);
         }
@@ -78,6 +78,7 @@ favoritesTableBody.addUserCallback = (data) => {
             favoritesTableBody.clearTable();
             favoritesTableBody.fillTable(callback.data);
             addMoneyForm.updateUsersList(callback.data);
+            favoritesTableBody.setMessage(false, 'Контакт успешно добавлен в избранное');
         } else {
             favoritesTableBody.setMessage(!callback.success, callback.data);
         }
@@ -91,6 +92,7 @@ favoritesTableBody.removeUserCallback = (data) => {
             favoritesTableBody.clearTable();
             favoritesTableBody.fillTable(callback.data);
             addMoneyForm.updateUsersList(callback.data);
+            favoritesTableBody.setMessage(false, 'Контакт успешно удален');
         } else {
             favoritesTableBody.setMessage(!callback.success, callback.data);
         }
